@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Druk DigiDraw 🇧🇹</title>
+  <!-- Bootstrap v5 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/b3aed9cb07.js" crossorigin="anonymous"></script>
+  <!-- TensorFlow.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+</head>
+<body>
+  <!-- Help Modal -->
+  <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="helpModalLabel">Welcome to Druk DigiDraw!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close Help"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Practice Mode:</strong> Draw a single digit (0–9) and press "Guess!" to hear and see what you drew.</p>
+          <p><strong>Challenge Mode:</strong> Listen to a challenge prompt, then draw the correct digit. Press "Guess!" to get feedback (the drawn digit won’t be shown).</p>
+          <p>For best experience, please use Chrome and allow speech features when prompted.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Let's Draw!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <header class="text-center py-3">
+    <h1 class="display-3 title">Druk DigiDraw 🇧🇹</h1>
+    <p class="small-note">For best experience, please use Chrome and allow speech features if prompted.</p>
+    <!-- Tabs for modes -->
+    <ul class="nav nav-tabs justify-content-center" id="modeTabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#" id="tab_free" aria-label="Practice Mode">Practice Mode</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="tab_task" aria-label="Challenge Mode">Challenge Mode</a>
+      </li>
+    </ul>
+  </header>
+  <main class="container">
+    <!-- Challenge Mode Section -->
+    <div id="taskMode" style="display: none;">
+      <section class="task-section text-center mb-2">
+        <h2 class="task-title">Your Challenge:</h2>
+        <p id="task_prompt" class="task-instruction"></p>
+        <div id="task_images" class="task-images mb-2" aria-label="Task Images"></div>
+        <button type="button" class="btn speak-btn" id="speak_prompt_button" aria-label="Listen to challenge prompt">
+          <i class="fas fa-volume-up"></i> Listen
+        </button>
+      </section>
+    </div>
+    <!-- Practice Mode Section -->
+    <div id="freeMode">
+      <section class="free-section text-center mb-2">
+        <h2 class="free-title">Practice Mode</h2>
+        <p class="free-instruction">Draw one single digit (0–9) only.</p>
+      </section>
+    </div>
+    <!-- Drawing Section -->
+    <section id="sketchpadapp" class="text-center">
+      <canvas id="sketchpad" aria-label="Drawing canvas"></canvas>
+      <div class="button-group mt-2">
+        <button type="button" class="btn guess-btn" id="predict_button" aria-label="Guess the drawn digit">🔍 Guess!</button>
+        <button type="button" class="btn clear-btn" id="clear_button" aria-label="Erase drawing">🧽 Erase</button>
+      </div>
+      <div class="result-container mt-2">
+        <h2 id="prediction_heading">Result:</h2>
+        <!-- In Practice Mode, the recognized digit (emoji) is shown; in Challenge Mode it remains hidden -->
+        <div id="emoji_result" class="emoji" aria-live="polite"></div>
+        <div id="confidence_bar" class="progress mx-auto" aria-label="Confidence level">
+          <div id="confidence_fill" class="progress-bar"></div>
+        </div>
+        <p id="text_result" class="result-text" aria-live="polite"></p>
+      </div>
+    </section>
+    <!-- Next Task Button (Challenge Mode only) -->
+    <section id="nextTaskSection" class="text-center mt-2" style="display: none;">
+      <button type="button" class="btn next-task-btn" id="next_task_button" aria-label="Load next challenge">
+        ➡️ Next Challenge
+      </button>
+    </section>
+  </main>
+  <footer class="text-center py-3 bg-light">
+    <!-- LinkedIn placeholder only -->
+    <a href="#" class="me-3" aria-label="LinkedIn Profile">
+      <i class="social-media-icons fab fa-linkedin fa-2x"></i>
+    </a>
+  </footer>
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom Script -->
+  <script src="js/main.js"></script>
+  <!-- Show Help Modal on load -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const helpModal = new bootstrap.Modal(document.getElementById("helpModal"));
+      helpModal.show();
+    });
+  </script>
+</body>
+</html>
